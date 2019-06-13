@@ -17,17 +17,30 @@ public static void main(String[] args) {
 	boolean newArray[][] = new boolean[COLUMNS][ROWS]; 
 	boolean swap[][] = new boolean[COLUMNS][ROWS];
 	
+//	StdDraw.square(.025, .025, .025);
+	//StdDraw.square(.025, .075, .025);
 	//Checks arrays to see boolean values and draw appropriately 
-	for(int column=1; column<COLUMNS; column++) {
-		   for (int row=1; row<ROWS; row++) {
-			   double xCoord = ((double)column / COLUMNS);
-			   double yCoord = ((double)row / ROWS);
-			   StdDraw.square(xCoord, yCoord, .1);
+	for(int column=0; column<COLUMNS; column++) {
+		   for (int row=0; row<ROWS; row++) {
+			   double xCoord = ((double)column * .05) + .025;
+			   double yCoord = ((double)row * .05) + .025;
+			   initialArray[5][1] = true;
+			   	if(initialArray[column][row]) {
+			   		StdDraw.filledSquare(xCoord, yCoord, .025);
+			   	}else {
+			   		StdDraw.square(xCoord, yCoord, .025);
+			   	}
+			   
 		   }
 	}
+//		StdDraw.square(.025, .025, .025); 
+//		StdDraw.square(.025, .075, .025);
+//		StdDraw.square(.025, .125, .025);
+//		StdDraw.square(.025, .175, .025);
+//	   StdDraw.square(.025, .225, .025);
 }			   
 			   
-//0	StdDraw.square(.025, .025, .025);
+//0	StdDraw.square(.025, .025, .025); 
 //1	StdDraw.square(.025, .075, .025);
 //2	StdDraw.square(.025, .125, .025);
 //3	StdDraw.square(.025, .175, .025);
