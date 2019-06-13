@@ -30,16 +30,15 @@ public static void main(String[] args) {
 			   	}else {
 			   		StdDraw.square(xCoord, yCoord, .025);
 			   	}
-			   
+			 
 		   }
 	}
-//		StdDraw.square(.025, .025, .025); 
-//		StdDraw.square(.025, .075, .025);
-//		StdDraw.square(.025, .125, .025);
-//		StdDraw.square(.025, .175, .025);
-//	   StdDraw.square(.025, .225, .025);
+	
+
 }			   
-			   
+	
+
+}
 //0	StdDraw.square(.025, .025, .025); 
 //1	StdDraw.square(.025, .075, .025);
 //2	StdDraw.square(.025, .125, .025);
@@ -72,5 +71,3 @@ public static void main(String[] args) {
 //	}
 //
 
-
-}
