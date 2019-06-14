@@ -34,11 +34,91 @@ public static void main(String[] args) {
 		   }
 	}
 	
+	for(int column=0; column<COLUMNS; column++) {
+		   for (int row=0; row<ROWS; row++) {
+			   int totalNeighbors = 0;
+			   
+			   //If cell is alive
+			   if(initialArray[column][row]) {
+					 //Check all its neighbors and tick variable appropriatly 
+				   	   if(initialArray[column-1][row-1]) {
+						   totalNeighbors = totalNeighbors + 1;
+					   }
+					   if(initialArray[column][row-1]) {
+						   totalNeighbors = totalNeighbors + 1;					   
+					   }
+					   if(initialArray[column+1][row-1]) {
+						   totalNeighbors = totalNeighbors + 1;
+					   }
+					   if(initialArray[column-1][row]) {
+						   totalNeighbors = totalNeighbors + 1;
+					   }
+					   if(initialArray[column+1][row]) {
+						   totalNeighbors = totalNeighbors + 1;
+					   }
+					   if(initialArray[column-1][row+1]) {
+						   totalNeighbors = totalNeighbors + 1;
+					   }
+					   if(initialArray[column][row+1]) {
+						   totalNeighbors = totalNeighbors + 1;					   
+					   }
+					   if(initialArray[column+1][row+1]) {
+						   totalNeighbors = totalNeighbors + 1;
+				       }
+				//After neighbor checks, if cell has a certain 3 of neighbors...
+					if (totalNeighbors < 2) {
+						initialArray[column][row] = false;
+					}else if(totalNeighbors>3) {
+						initialArray[column][row] = false;
+					}else {
+						initialArray[column][row] = true;
+					}
+			
+				//Else the cell is dead..
+			    }else {
+			    	//check neighbors  
+			    	   if(initialArray[column-1][row-1]) {
+						   totalNeighbors = totalNeighbors + 1;
+					   }
+					   if(initialArray[column][row-1]) {
+						   totalNeighbors = totalNeighbors + 1;					   
+					   }
+					   if(initialArray[column+1][row-1]) {
+						   totalNeighbors = totalNeighbors + 1;
+					   }
+					   if(initialArray[column-1][row]) {
+						   totalNeighbors = totalNeighbors + 1;
+					   }
+					   if(initialArray[column+1][row]) {
+						   totalNeighbors = totalNeighbors + 1;
+					   }
+					   if(initialArray[column-1][row+1]) {
+						   totalNeighbors = totalNeighbors + 1;
+					   }
+					   if(initialArray[column][row+1]) {
+						   totalNeighbors = totalNeighbors + 1;					   
+					   }
+					   if(initialArray[column+1][row+1]) {
+						   totalNeighbors = totalNeighbors + 1;
+				       }
+					//If cell has 3 neighbors it comes to life else remains dead
+					if (totalNeighbors == 3) {
+						initialArray[column][row] = true;
+					}else{
+						initialArray[column][row] = false;
+					}
+		
+			    }
+			  
+		   }
+	}
+	}
+}
 
-}			   
+			   
 	
 
-}
+
 //0	StdDraw.square(.025, .025, .025); 
 //1	StdDraw.square(.025, .075, .025);
 //2	StdDraw.square(.025, .125, .025);
