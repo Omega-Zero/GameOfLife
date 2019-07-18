@@ -1,8 +1,6 @@
 
 //Jeffrey's Java Implenetation of the Game of Life using StdDraw class methods
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 public class GameOfLifeGrid {
 
@@ -12,26 +10,22 @@ public class GameOfLifeGrid {
 	static boolean initialArray[][] = new boolean[COLUMNS][ROWS];
 	static boolean newArray[][] = new boolean[COLUMNS][ROWS];
 	static boolean swapArray[][];
-	
+
 	public static void main(String[] args) {
-		
-		
+
 		initialArray[5][1] = true;
 		initialArray[6][1] = true;
-		
+
 		initialArray[17][5] = true;
 		initialArray[18][5] = true;
 		initialArray[16][5] = true;
 		initialArray[18][6] = true;
-		
+
 		initialArray[15][12] = true;
-		
+
 		drawGrid(initialArray);
-		
+
 		runLifeLogic();
-		
-		
-		
 
 //	newArray = initialArray;
 //
@@ -51,17 +45,14 @@ public class GameOfLifeGrid {
 				} else {
 					StdDraw.square(xCoord, yCoord, .025);
 				}
-				
+
 			}
 		}
-	}//END drawGrid()
-	
-	
+	}// END drawGrid()
 
 //Actual Life Logic
 	public static void runLifeLogic() {
 
-		int totalNeighbors = 0;
 
 		for (int generation = 0; generation < GENERATIONS; generation++) {
 
@@ -73,111 +64,73 @@ public class GameOfLifeGrid {
 					if (initialArray[column][row]) {
 
 						// array bounds check
-						if (column - 1 != -1 && row - 1 != -1 && column + 1 != COLUMNS && row + 1 != ROWS) {
-
-							// Check all its neighbors and tick variable appropriately
-							totalNeighbors = 0;
-							if (initialArray[column - 1][row - 1]) {
-								totalNeighbors = totalNeighbors + 1;
-							}
-							if (initialArray[column][row - 1]) {
-								totalNeighbors = totalNeighbors + 1;
-							}
-							if (initialArray[column + 1][row - 1]) {
-								totalNeighbors = totalNeighbors + 1;
-							}
-							if (initialArray[column - 1][row]) {
-								totalNeighbors = totalNeighbors + 1;
-							}
-							if (initialArray[column + 1][row]) {
-								totalNeighbors = totalNeighbors + 1;
-							}
-							if (initialArray[column - 1][row + 1]) {
-								totalNeighbors = totalNeighbors + 1;
-							}
-							if (initialArray[column][row + 1]) {
-								totalNeighbors = totalNeighbors + 1;
-							}
-							if (initialArray[column + 1][row + 1]) {
-								totalNeighbors = totalNeighbors + 1;
-							}
-						
-							// After neighbor checks, if cell has exactly 3 of neighbors...
-							if (totalNeighbors <= 1) {
-								newArray[column][row] = false;
-								totalNeighbors = 0;
-							} else if (totalNeighbors >= 4) {
-								newArray[column][row] = false;
-								totalNeighbors = 0;
-							} else {
-								newArray[column][row] = true;
-								totalNeighbors = 0;
-							}
-						}//END LIVE CELL BOUNDSCHECK
 							
+							//doesCellDie
+							if(neighborCheck(column, row) == 1 || neighborCheck(column, row) == 0 || neighborCheck(column, row) >= 4 ) {
+								newArray[column][row] = false;
+							}else {
+								newArray[column][row] = true;
+							}
+							
+							
+						
+						
 						// Else the cell is dead..
 						}else {
-							totalNeighbors = 0;
-							// if row/column are in bounds
-							if (column - 1 != -1 && row - 1 != -1 && column + 1 != COLUMNS && row + 1 != ROWS) {
-								// check neighbors
-								if (initialArray[column - 1][row - 1]) {
-									totalNeighbors = totalNeighbors + 1;
-								}
-								if (initialArray[column][row - 1]) {
-									totalNeighbors = totalNeighbors + 1;
-								}
-								if (initialArray[column + 1][row - 1]) {
-									totalNeighbors = totalNeighbors + 1;
-								}
-								if (initialArray[column - 1][row]) {
-									totalNeighbors = totalNeighbors + 1;
-								}
-								if (initialArray[column + 1][row]) {
-									totalNeighbors = totalNeighbors + 1;
-								}
-								if (initialArray[column - 1][row + 1]) {
-									totalNeighbors = totalNeighbors + 1;
-								}
-								if (initialArray[column][row + 1]) {
-									totalNeighbors = totalNeighbors + 1;
-								}
-								if (initialArray[column + 1][row + 1]) {
-									totalNeighbors = totalNeighbors + 1;
-								}
 
-								// If cell has 3 neighbors it comes to life else remains dead
-								if (totalNeighbors == 3) {
+								// doesCellComeToLife
+								if (neighborCheck(column, row) == 3) {
 									newArray[column][row] = true;
-									totalNeighbors = 0;
 								} else {
 									newArray[column][row] = false;
-									totalNeighbors = 0;
-
 								}
 
-							} // END DEADCELL BOUNDS CHECK
-
-						}//END LIVE/DEAD IF CHECK
+							} // END ELSE 
 
 					}//END ROW LOOP
 
 				} // END COLUMN LOOP
-			
-			
+			drawGrid(newArray);
 			swapArray = initialArray;
 			initialArray = newArray;
 			newArray = swapArray;
-			drawGrid(newArray);
-			System.out.println(initialArray[5][1]);
+				
+			} // END GEN LOOP
+	}
+
+	public static int neighborCheck(int column, int row) {
+		int totalNeighbors = 0;
+		if (column - 1 != -1 && row - 1 != -1 && column + 1 != COLUMNS && row + 1 != ROWS) {
 			
-			} // END GEN  LOOP
-
-//redraw array from newArray after every generation
+			if (initialArray[column - 1][row - 1]) {
+				totalNeighbors = totalNeighbors + 1;
+			}
 			
+			if (initialArray[column][row - 1]) {
+				totalNeighbors = totalNeighbors + 1;
+			}
+			if (initialArray[column + 1][row - 1]) {
+				totalNeighbors = totalNeighbors + 1;
+			}
+			if (initialArray[column - 1][row]) {
+				totalNeighbors = totalNeighbors + 1;
+			}
+			if (initialArray[column + 1][row]) {
+				totalNeighbors = totalNeighbors + 1;
+			}
+			if (initialArray[column - 1][row + 1]) {
+				totalNeighbors = totalNeighbors + 1;
+			}
+			if (initialArray[column][row + 1]) {
+				totalNeighbors = totalNeighbors + 1;
+			}
+			if (initialArray[column + 1][row + 1]) {
+				totalNeighbors = totalNeighbors + 1;
+			}
 			
-
-
-	}// END METHOD runLifeLogic()
-
-}// END CLASS GameOfLifeGrid
+		}
+		return totalNeighbors;
+		
+	}
+	
+	}// END CLASS GameOfLifeGrid
