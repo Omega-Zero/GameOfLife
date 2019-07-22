@@ -12,14 +12,23 @@ public class GameOfLifeGrid {
 
 	public static void main(String[] args) {
 
+		//Exploder Tester
 		initialArray[5][1] = true;
 		initialArray[6][1] = true;
-
+		initialArray[7][1] = true;
+		initialArray[8][1] = true;
+		initialArray[9][1] = true;
+		initialArray[10][1] = true;
+		initialArray[11][1] = true;
+		
+		//Simple test
+		initialArray[6][1] = true;
 		initialArray[17][5] = true;
 		initialArray[18][5] = true;
 		initialArray[16][5] = true;
 		initialArray[18][6] = true;
-
+		
+		//single cell test
 		initialArray[15][12] = true;
 
 		drawGrid(initialArray);
@@ -96,11 +105,13 @@ public class GameOfLifeGrid {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				e.printStackTrace();			
+			}//END try
 
+			
 		} // END GEN LOOP
-	}
+		
+	}//END runLifeLogic();
 
 	public static int neighborCheck(int column, int row) {
 		
