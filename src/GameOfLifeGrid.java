@@ -1,5 +1,6 @@
 
 //Jeffrey's Java Implenetation of the Game of Life using StdDraw class methods
+import java.util.Random;
 
 public class GameOfLifeGrid {
 
@@ -7,6 +8,23 @@ public class GameOfLifeGrid {
 
 	public static void main(String[] args) {
 
+	
+		letThereBeLife();
+	
+	}
+
+	//Generates life by changing booleans in initial array
+	public static void letThereBeLife() {
+		int COLUMNS = 20;
+		int ROWS = 20;
+		int gridLifePercent = 100;
+		
+		boolean initialArray[][] = new boolean[COLUMNS][ROWS];
+		boolean newArray[][] = new boolean[COLUMNS][ROWS];
+		boolean swapArray[][] = new boolean[COLUMNS][ROWS];
+
+		
+		
 		// Exploder Tester
 //		initialArray[5][1] = true;
 //		initialArray[6][1] = true;
@@ -25,19 +43,23 @@ public class GameOfLifeGrid {
 
 		// single cell test
 //		initialArray[15][12] = true;
-		letThereBeLife();
-	}
-
-	public static void letThereBeLife() {
-		int COLUMNS = 20;
-		int ROWS = 20;
 		
-		boolean initialArray[][] = new boolean[COLUMNS][ROWS];
-		boolean newArray[][] = new boolean[COLUMNS][ROWS];
-		boolean swapArray[][] = new boolean[COLUMNS][ROWS];
+		
+		
+		//Generates random life cells based off desired % of grid filled
+		for (int currentPercent = 0; currentPercent < gridLifePercent; currentPercent++) {
+			Random randomLife = new Random();
 
+			int lifeColumn = randomLife.nextInt(COLUMNS);
+			int lifeRow = randomLife.nextInt(ROWS);
+			initialArray[lifeColumn][lifeRow] = true;
+		}
+		
 		runLifeLogic(initialArray, newArray, swapArray, COLUMNS, ROWS);
 	}
+	
+	
+	
 
 //Makes calls to StdDraw to appropriately draw grid based off array booleans 
 	public static void drawGrid(boolean[][] array, int COLUMNS, int ROWS) {
@@ -62,7 +84,9 @@ public class GameOfLifeGrid {
 
 	}// END drawGrid()
 
-//Actual Life Logic
+	
+	
+//Actual Life Logic. 
 	public static void runLifeLogic(boolean[][] initialArray, boolean[][] newArray, boolean[][] swapArray, int COLUMNS, int ROWS) {
 
 
@@ -107,7 +131,7 @@ public class GameOfLifeGrid {
 			drawGrid(newArray, COLUMNS, ROWS);
 
 			try {
-				Thread.sleep(500);
+				Thread.sleep(500);runLifeLogic(initialArray, newArray, swapArray, COLUMNS, ROWS);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -169,6 +193,8 @@ public class GameOfLifeGrid {
 			}
 		}
 		return totalNeighbors;
-	}
+	}//End class neighborCheck()
+	
+	
 
 }// END CLASS GameOfLifeGrid
