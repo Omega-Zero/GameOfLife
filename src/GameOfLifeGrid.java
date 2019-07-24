@@ -1,5 +1,5 @@
 
-//Jeffrey's Java Implenetation of the Game of Life using StdDraw class methods
+//Jeffrey's Java implementation of the Game of Life using StdDraw class methods
 import java.util.Random;
 
 public class GameOfLifeGrid {
@@ -13,17 +13,17 @@ public class GameOfLifeGrid {
 	
 	}
 
-	//Generates life by changing booleans in initial array
+	
+	
+	//Generates life by changing booleans in 2D initialArray
 	public static void letThereBeLife() {
 		int COLUMNS = 20;
 		int ROWS = 20;
-		int gridLifePercent = 100;
+		int desiredRandomCells = 100;
 		
 		boolean initialArray[][] = new boolean[COLUMNS][ROWS];
 		boolean newArray[][] = new boolean[COLUMNS][ROWS];
 		boolean swapArray[][] = new boolean[COLUMNS][ROWS];
-
-		
 		
 		// Exploder Tester
 //		initialArray[5][1] = true;
@@ -44,10 +44,8 @@ public class GameOfLifeGrid {
 		// single cell test
 //		initialArray[15][12] = true;
 		
-		
-		
-		//Generates random life cells based off desired % of grid filled
-		for (int currentPercent = 0; currentPercent < gridLifePercent; currentPercent++) {
+		//Generates random life cells based off desired # of grid filled
+		for (int currentRandomCells = 0; currentRandomCells < desiredRandomCells; currentRandomCells++) {
 			Random randomLife = new Random();
 
 			int lifeColumn = randomLife.nextInt(COLUMNS);
@@ -60,8 +58,13 @@ public class GameOfLifeGrid {
 	
 	
 	
-
-//Makes calls to StdDraw to appropriately draw grid based off array booleans 
+	/**
+	 * Method uses StdDraw to draw the life grid on jFrame based off given 2D boolean array.
+	 * 
+	 * @param array - 2D array that will be drawn to screen
+	 * @param COLUMNS -  the column count size for the overall grid
+	 * @param ROWS -  the row count size for the overall grid
+	 */
 	public static void drawGrid(boolean[][] array, int COLUMNS, int ROWS) {
 
 		StdDraw.clear();
@@ -86,7 +89,27 @@ public class GameOfLifeGrid {
 
 	
 	
-//Actual Life Logic. 
+
+	
+	/**
+	 * Method that calls neighborCheck() and drawGrid() to simulate John Conway's Game of Life Logic that is calculated within method. 
+	 *          
+	 *               ---IF LOGIC--- 
+	 *     - For a space that is 'populated': -
+	 * Each cell with one or no neighbors dies, as if by solitude.
+	 * Each cell with four or more neighbors dies, as if by overpopulation.
+	 * Each cell with two or three neighbors survives.
+	 * 
+	 *    - For a space that is 'empty' or 'unpopulated' -
+	 * Each cell with three neighbors becomes populated.
+	 * 				---------------
+	 * 
+	 * @param initialArray - 2D boolean array that represents the currently displayed life grid
+	 * @param newArray - 2D boolean array that represents the life grid for the next incoming generation
+	 * @param swapArray - 2D boolean array that acts as a place holder for when generations are swapping between initialArray and newArray
+	 * @param COLUMNS -  the column count size for the overall grid
+	 * @param ROWS -  the row count size for the overall grid
+	 */
 	public static void runLifeLogic(boolean[][] initialArray, boolean[][] newArray, boolean[][] swapArray, int COLUMNS, int ROWS) {
 
 
@@ -141,6 +164,19 @@ public class GameOfLifeGrid {
 
 	}// END runLifeLogic();
 
+	
+	
+	
+	/**
+	 * Method that when passed a 2D array and cell location in array will return the neighbors of the cell
+	 * 
+	 * @param initialArray - 2D boolean array that represents the currently displayed life grid
+	 * @param column - the current column number for the cell being neighborchecked
+	 * @param COLUMNS - the column count size for the overall grid
+	 * @param row - the current row number for the cell being neighborchecked 
+	 * @param ROWS - the row count size for the overall grid
+	 * @return the number of "true" neighbor cells around the cell in question
+	 */	
 	public static int neighborCheck(boolean[][] initialArray, int column, int COLUMNS, int row, int ROWS) {
 
 		int totalNeighbors = 0;
@@ -197,4 +233,6 @@ public class GameOfLifeGrid {
 	
 	
 
+	
+	
 }// END CLASS GameOfLifeGrid
