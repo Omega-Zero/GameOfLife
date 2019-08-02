@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class GameOfLifeGrid {
 
-	final static int GENERATIONS = 500;
 
 	public static void main(String[] args) {
 
@@ -17,9 +16,9 @@ public class GameOfLifeGrid {
 	
 	//Generates life by changing booleans in 2D initialArray
 	public static void letThereBeLife() {
-		int COLUMNS = 20;
-		int ROWS = 20;
-		int desiredRandomCells = 100;
+		int COLUMNS = 100;
+		int ROWS = 100;
+	
 		
 		boolean initialArray[][] = new boolean[COLUMNS][ROWS];
 		boolean newArray[][] = new boolean[COLUMNS][ROWS];
@@ -44,22 +43,22 @@ public class GameOfLifeGrid {
 		// single cell test
 //		initialArray[15][12] = true;
 		
-		//Generates random life cells based off desired # of grid filled
-		for (int currentRandomCells = 0; currentRandomCells < desiredRandomCells; currentRandomCells++) {
-			Random randomLife = new Random();
 
-			int lifeColumn = randomLife.nextInt(COLUMNS);
-			int lifeRow = randomLife.nextInt(ROWS);
-			initialArray[lifeColumn][lifeRow] = true;
-		}
-		
-		runLifeLogic(initialArray, newArray, swapArray, COLUMNS, ROWS);
-	}
+
+		//Generates random life cells based off of 10% of how many columns/rows their are 
+				for (int column = 0; column < COLUMNS; column++)
+					for (int row = 0; row < ROWS; row++)
+						if(Math.random() < 0.1)
+							initialArray[column][row] = true;
+				
+				
+				runLifeLogic(initialArray, newArray, swapArray, COLUMNS, ROWS);
+			}		//End letThereBeLife();
 	
 	
 	
 	/**
-	 * Method uses StdDraw to draw the life grid on jFrame based off given 2D boolean array.
+	 * Method uses StdDraw to draw the life grid on jFrame based off given 2D boolean array with varying row and column sizes.
 	 * 
 	 * @param array - 2D array that will be drawn to screen
 	 * @param COLUMNS -  the column count size for the overall grid
@@ -72,12 +71,12 @@ public class GameOfLifeGrid {
 
 		for (int column = 0; column < COLUMNS; column++) {
 			for (int row = 0; row < ROWS; row++) {
-				double xCoord = ((double) column * .05) + .025;
-				double yCoord = ((double) row * .05) + .025;
+				double xCoord = ((double) column * (1.0/COLUMNS)) + (0.5/COLUMNS);
+				double yCoord = ((double) row * (1.0/ROWS)) + (0.5/ROWS);
 				if (array[column][row] == true) {
-					StdDraw.filledSquare(xCoord, yCoord, .025);
+					StdDraw.filledSquare(xCoord, yCoord, 0.5/ROWS);
 				} else {
-					StdDraw.square(xCoord, yCoord, .025);
+					StdDraw.square(xCoord, yCoord, 0.5/ROWS);
 				}
 
 			}
@@ -112,6 +111,7 @@ public class GameOfLifeGrid {
 	 */
 	public static void runLifeLogic(boolean[][] initialArray, boolean[][] newArray, boolean[][] swapArray, int COLUMNS, int ROWS) {
 
+	 int GENERATIONS = 500;
 
 
 		for (int generation = 0; generation < GENERATIONS; generation++) {
@@ -154,7 +154,7 @@ public class GameOfLifeGrid {
 			drawGrid(newArray, COLUMNS, ROWS);
 
 			try {
-				Thread.sleep(500);runLifeLogic(initialArray, newArray, swapArray, COLUMNS, ROWS);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -168,7 +168,7 @@ public class GameOfLifeGrid {
 	
 	
 	/**
-	 * Method that when passed a 2D array and cell location in array will return the neighbors of the cell
+	 * Method that when passed a 2D array and cell location in array will return the # of neighbors of the cell
 	 * 
 	 * @param initialArray - 2D boolean array that represents the currently displayed life grid
 	 * @param column - the current column number for the cell being neighborchecked
@@ -228,7 +228,9 @@ public class GameOfLifeGrid {
 				totalNeighbors = totalNeighbors + 1;
 			}
 		}
+		
 		return totalNeighbors;
+		
 	}//End class neighborCheck()
 	
 	
